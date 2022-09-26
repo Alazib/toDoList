@@ -4,7 +4,7 @@ import "./App.css"
 
 function App() {
   const [newTask, setNewTask] = useState("")
-  const [printedTask, setPrintedTask] = useState([""])
+  const [printedTask, setPrintedTask] = useState([])
 
   function handleOnChange(e) {
     setNewTask(e.target.value)
