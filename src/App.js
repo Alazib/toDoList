@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import List from "./components/List"
+import "./App.css"
 
 function App() {
+  const [newTask, setNewTask] = useState("")
+  const [printedTask, setPrintedTask] = useState([""])
+
+  function handleOnChange(e) {
+    setNewTask(e.target.value)
+  }
+
+  function handleOnSubmit(event) {
+    event.preventDefault()
+    setPrintedTask([newTask, ...printedTask])
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className="App">
+        <form onSubmit={handleOnSubmit}>
+          <input type="text" onChange={(e) => handleOnChange(e)}></input>
+          <button type="submit">ADD TASK</button>
+        </form>
+      </div>
+      <List task={printedTask} />
+    </>
+  )
 }
 
-export default App;
+export default App
