@@ -1,18 +1,16 @@
 import "../styles/List.css"
+import Button from "./Button/Button"
+import Task from "./Task"
 
-function List({ task }) {
+function List({ tasksList }) {
   return (
     <>
       <ul className="to-do-list">
-        {task.map((task, position) => {
-          return (
-            <div key={position} className="button-and-task">
-              <button className="button delete">X</button>
-              <li className="task">{task}</li>
-            </div>
-          )
+        {tasksList.map((task, position) => {
+          return <Task key={position} taskDescription={task}></Task>
         })}
       </ul>
+      <Button label={"X"} className={"delete"} onClick={undefined} />
     </>
   )
 }

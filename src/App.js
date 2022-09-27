@@ -4,7 +4,7 @@ import "./App.css"
 
 function App() {
   const [newTask, setNewTask] = useState("")
-  const [printedTask, setPrintedTask] = useState([])
+  const [printedTasks, setPrintedTasks] = useState([])
 
   function handleOnChange(e) {
     setNewTask(e.target.value)
@@ -12,7 +12,12 @@ function App() {
 
   function handleOnSubmit(event) {
     event.preventDefault()
-    setPrintedTask([newTask, ...printedTask])
+
+    const NEW_TASK_EXISTS = newTask !== ""
+
+    if (NEW_TASK_EXISTS) {
+      setPrintedTasks([...printedTasks, newTask])
+    }
   }
 
   return (
@@ -23,7 +28,7 @@ function App() {
           <button type="submit">ADD TASK</button>
         </form>
       </div>
-      <List task={printedTask} />
+      <List tasksList={printedTasks} />
     </>
   )
 }
