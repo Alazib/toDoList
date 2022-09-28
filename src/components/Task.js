@@ -2,7 +2,7 @@ import { useState } from "react"
 import Button from "./Button/Button"
 import "../styles/Task.css"
 
-function Task({ taskDescription }) {
+function Task({ taskDescription, tasksDone, setTasksDone }) {
   const [done, setDone] = useState(false)
 
   function doneOrPending() {
@@ -14,7 +14,22 @@ function Task({ taskDescription }) {
 
   function taskDone() {
     setDone(!done)
+    tasksCheckedAndNotCheckedYet()
   }
+
+  function tasksCheckedAndNotCheckedYet() {
+    const TASK_IS_NOT_CHECKED_YET = !tasksDone.includes(taskDescription)
+
+    if (TASK_IS_NOT_CHECKED_YET) {
+      setTasksDone([...tasksDone, taskDescription])
+    } else {
+      let tasksDoneMinusOne = tasksDone.filter((task) => {
+        return task !== taskDescription
+      })
+      setTasksDone([...tasksDoneMinusOne])
+    }
+  }
+  console.log("taksDone:", tasksDone)
 
   return (
     <div className="button-and-task ">

@@ -28,7 +28,7 @@ function App() {
           <button type="submit">ADD TASK</button>
         </form>
       </div>
-      <List tasksList={printedTasks} />
+      <List tasksList={printedTasks} setPrintedTasks={setPrintedTasks} />
     </>
   )
 }
