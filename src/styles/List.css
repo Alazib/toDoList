@@ -1,3 +1,13 @@
+.to-do-list-and-button {
+  background-color: white;
+  justify-content: center;
+  margin-top: 20px;
+  border-radius: 6px;
+  box-shadow: 3px 3px 15px #0c0d12;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
 ul {
   list-style: none;
 }

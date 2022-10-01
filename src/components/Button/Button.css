@@ -1,0 +1,34 @@
+.button {
+  padding: 4px;
+  border-radius: 6px;
+  color: white;
+}
+
+.delete {
+  width: fit-content;
+  background-color: rgb(67, 148, 148);
+}
+.delete:hover {
+  background-color: rgba(67, 148, 148, 0.6);
+}
+
+.submit {
+  width: 70px;
+  background-color: rgb(244, 148, 167);
+}
+.submit:hover {
+  background-color: rgba(244, 148, 167, 0.6);
+}
+
+.pending,
+.done {
+  outline: none;
+  border: 0;
+  background: none;
+}
+
+.check-box,
+.check-box-done {
+  width: 20px;
+  height: 20px;
+}

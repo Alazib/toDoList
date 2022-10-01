@@ -2,46 +2,35 @@ import { useState } from "react"
 import Button from "./Button/Button"
 import "../styles/Task.css"
 
-function Task({ taskDescription, tasksDone, setTasksDone }) {
+function Task({ taskPrinted, printedTasks, setPrintedTasks }) {
   const [done, setDone] = useState(false)
 
-  function doneOrPending() {
-    if (done) {
-      return "done"
-    }
-    return "pending"
-  }
-
   function taskDone() {
+    printedTasks.forEach((taskOnScreen) => {
+      if (taskOnScreen.id === taskPrinted.id) {
+        taskPrinted.isDone = !done
+      }
+    })
+    setPrintedTasks([...printedTasks])
     setDone(!done)
-    tasksCheckedAndNotCheckedYet()
   }
 
-  function tasksCheckedAndNotCheckedYet() {
-    const TASK_IS_NOT_CHECKED_YET = !tasksDone.includes(taskDescription)
-
-    if (TASK_IS_NOT_CHECKED_YET) {
-      setTasksDone([...tasksDone, taskDescription])
-    } else {
-      let tasksDoneMinusOne = tasksDone.filter((task) => {
-        return task !== taskDescription
-      })
-      setTasksDone([...tasksDoneMinusOne])
-    }
+  function doneOrPending() {
+    return taskPrinted.isDone === true ? "done" : "pending"
   }
-  console.log("taksDone:", tasksDone)
+
+  const { title } = taskPrinted
 
   return (
-    <div className="button-and-task ">
+    <div className="button-and-task">
       <Button
-        label={"V"}
-        className={"check"}
+        className={`${doneOrPending()}`}
         onClick={() => {
           taskDone()
         }}
       ></Button>
 
-      <li className={`task ${doneOrPending()}`}>{taskDescription}</li>
+      <li className={`task task-${doneOrPending()}`}>{title}</li>
     </div>
   )
 }

@@ -1,45 +1,38 @@
-import { useState } from "react"
 import "../styles/List.css"
 import Button from "./Button/Button"
 import Task from "./Task"
 
-function List({ tasksList, setPrintedTasks }) {
-  const [tasksDone, setTasksDone] = useState([])
-
+function List({ printedTasks, setPrintedTasks }) {
   function deleteTasksDone() {
-    let tasksUndone = []
-    for (let i = 0; i < tasksList.length; i++) {
-      const TASK_IS_NOT_DONE = !tasksDone.includes(tasksList[i])
-      if (TASK_IS_NOT_DONE) {
-        tasksUndone.push(tasksList[i])
-      }
-    }
+    const tasksUndone = printedTasks.filter((task) => {
+      return !task.isDone
+    })
     setPrintedTasks(tasksUndone)
-    console.log("TASKS UNDONE", tasksUndone)
   }
 
   return (
-    <>
+    <div className="to-do-list-and-button">
       <ul className="to-do-list">
-        {tasksList.map((task, position) => {
+        {printedTasks.map((task) => {
+          const { id } = task
           return (
             <Task
-              key={position}
-              taskDescription={task}
-              tasksDone={tasksDone}
-              setTasksDone={setTasksDone}
-            ></Task>
+              key={id}
+              taskPrinted={task}
+              printedTasks={printedTasks}
+              setPrintedTasks={setPrintedTasks}
+            />
           )
         })}
       </ul>
       <Button
-        label={"X"}
+        label={"Eliminar completados"}
         className={"delete"}
         onClick={() => {
           deleteTasksDone()
         }}
       />
-    </>
+    </div>
   )
 }
 
