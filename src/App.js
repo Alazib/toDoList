@@ -5,29 +5,38 @@ import "./styles/App.css"
 import Button from "./components/Button/Button"
 
 function App() {
+ 
   const [newTask, setNewTask] = useState({})
   const [printedTasks, setPrintedTasks] = useState([])
   const [formValue, setFormValue] = useState("")
 
-  function handleOnChange(e) {
-    setNewTask({ title: e.target.value, id: uniqid(), isDone: false })
-    setFormValue(e.target.value)
+  function handleOnChange(value) {
+
+    setNewTask({ title: value, id: uniqid(), isDone: false })
+    setFormValue(value)
   }
 
   function handleOnSubmit(event) {
     event.preventDefault()
 
-    const NEW_TASK_EXISTS =
-      newTask.hasOwnProperty("title") && newTask.title !== ""
+    // Con mayusculas es si es algo que no muta nunca. En este caso, dependiendo del titulo o no si que cambia
+    const existNewTask = newTask.hasOwnProperty("title") && newTask.title !== ""
 
-    if (NEW_TASK_EXISTS) {
+    if (existNewTask) {
       setPrintedTasks([...printedTasks, newTask])
     }
+
+    cleanForm()
+  }
+
+  function cleanForm () {
     setFormValue("")
     setNewTask({})
   }
 
-  const SOME_PRINTED_TASK_EXISTS = printedTasks.length > 0
+  // Lo de antes, si muta en algún momento no se pone en mayusculas.
+  // En este caso tampoco haria falta darle mas legibilidad. Es tipico el "Solo pinto si tengo algo en el array"
+  //const SOME_PRINTED_TASK_EXISTS = printedTasks.length > 0
 
   return (
     <>
@@ -35,7 +44,7 @@ function App() {
         <form onSubmit={handleOnSubmit}>
           <input
             type="text"
-            onChange={(e) => handleOnChange(e)}
+            onChange={(e) => handleOnChange(e.target.value)}
             value={formValue}
           ></input>
           <Button
@@ -45,7 +54,7 @@ function App() {
             className={"submit"}
           ></Button>
         </form>
-        {SOME_PRINTED_TASK_EXISTS && (
+        {printedTasks.length > 0 && (
           <List printedTasks={printedTasks} setPrintedTasks={setPrintedTasks} />
         )}
       </div>
