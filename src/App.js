@@ -9,25 +9,23 @@ function App() {
   const [printedTasks, setPrintedTasks] = useState([])
   const [formValue, setFormValue] = useState("")
 
-  function handleOnChange(e) {
-    setNewTask({ title: e.target.value, id: uniqid(), isDone: false })
-    setFormValue(e.target.value)
+  function handleOnChange(value) {
+    setNewTask({ title: value, id: uniqid(), isDone: false })
+    setFormValue(value)
   }
 
   function handleOnSubmit(event) {
     event.preventDefault()
 
-    const NEW_TASK_EXISTS =
+    const newTaskExists =
       newTask.hasOwnProperty("title") && newTask.title !== ""
 
-    if (NEW_TASK_EXISTS) {
+    if (newTaskExists) {
       setPrintedTasks([...printedTasks, newTask])
     }
     setFormValue("")
     setNewTask({})
   }
-
-  const SOME_PRINTED_TASK_EXISTS = printedTasks.length > 0
 
   return (
     <>
@@ -35,17 +33,19 @@ function App() {
         <form onSubmit={handleOnSubmit}>
           <input
             type="text"
-            onChange={(e) => handleOnChange(e)}
+            onChange={(e) => handleOnChange(e.target.value)}
             value={formValue}
           ></input>
           <Button
             type="submit"
             label={"Añadir"}
-            onClick={null}
+            onClick={() => {
+              return
+            }}
             className={"submit"}
           ></Button>
         </form>
-        {SOME_PRINTED_TASK_EXISTS && (
+        {printedTasks.length > 0 && (
           <List printedTasks={printedTasks} setPrintedTasks={setPrintedTasks} />
         )}
       </div>
